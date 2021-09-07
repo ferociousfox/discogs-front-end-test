@@ -6,14 +6,13 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import { releaseData } from './data'
 import Card from './Card'
 import { sortDataByYear, sortDataByArtist } from './helpers'
-
+// typo prevention
+const year = 'year'
+const artist = 'artist'
 
 function App() {
-  // typo prevention
-  const _year = 'year'
-  const _artist = 'artist'
   const [data, setData] = useState([])
-  const [sortOrder, setSortOrder] = useState(_artist)
+  const [sortOrder, setSortOrder] = useState(artist)
 
   useEffect(() => {
     async function getData() {
@@ -25,14 +24,14 @@ function App() {
 
   useEffect(() => {
     setData(data => {
-      const dataByArtist = sortOrder === _year
+      const dataByArtist = sortOrder === year
         ? sortDataByYear(data)
         : sortDataByArtist(data)
       setData(dataByArtist)
     })
   }, [sortOrder])
 
-  if(!data.length) return (
+  if(!data) return (
     <Loader
       type="Puff"
       color="#00BFFF"
@@ -40,21 +39,38 @@ function App() {
       width={1000}
     />
   )
-  // take out after Card is complete
-  console.log(data)
-  const { artist, catno, thumb, title, resource_url, year } = data[0]
+
   return (
-    <div className="flex-grid">
-      <Card
-        key={resource_url}
-        artist={artist}
-        catno={catno}
-        thumb={thumb}
-        title={title}
-        url={resource_url}
-        year={year}
-      />
-    </div>
+    <>
+      <div className="heading">
+        <div>
+          <h1>Realeases from R&amp;S Records</h1>
+        </div>
+        <div>
+          <select
+            className="select"
+            name="year-artist-sort"
+            onChange={e => setSortOrder(e.target.value)}
+          >
+            <option value={artist}>Sort by Artist</option>
+            <option value={year}>Sort by Year</option>
+          </select>
+        </div>
+      </div>
+      <div className="flex-grid">
+        {data.map(({ artist, catno, resource_url, thumb, title, year }) =>
+          <Card
+            key={resource_url}
+            url={resource_url}
+            artist={artist}
+            catno={catno}
+            thumb={thumb}
+            title={title}
+            year={year}
+          />
+        )}
+      </div>
+    </>
   )
 }
 
