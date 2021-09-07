@@ -1,0 +1,45 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: column;
+  background-color: thistle;
+  width: 250px;
+  min-height: 250px; /* need to look at this */
+  box-shadow: 0 0 7px 5px gray;
+  border-radius: 3px;
+  height: 100%
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: gray; */
+  padding: 10px;
+  margin: 5px;
+}
+
+img {
+  object-fit: cover;
+  height: 250px;
+  width: 250px;
+  border-radius: 3px 3px 0 0;
+}
+
+.card-body {
+  display: flex;
+  justify-content: space-between;
+    background-color: thistle;
+}
+
+.large-text {
+  line-height: 16px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.small-text {
+  line-height: 10px;
+  font-size: 10px;
+}
